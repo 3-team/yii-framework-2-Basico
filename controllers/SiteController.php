@@ -61,6 +61,18 @@ class SiteController extends Controller {
         return $this->render('index');
     }
 
+    public function actionSignup() {
+        $model = new \app\models\SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Registrado correctamente.');
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
+                    'model' => $model,
+        ]);
+    }
+
     /**
      * Login action.
      *
